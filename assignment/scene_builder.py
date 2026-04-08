@@ -1,43 +1,9 @@
-"""
-DIGM 131 - Assignment 1: Procedural Scene Builder
-==================================================
-
-OBJECTIVE:
-    Build a simple 3D scene in Maya using Python scripting.
-    You will practice using maya.cmds to create and position geometry,
-    and learn to use descriptive variable names.
-
-REQUIREMENTS:
-    1. Create a ground plane (a large, flat polygon plane).
-    2. Create at least 5 objects in your scene.
-    3. Use at least 2 different primitive types (e.g., cubes AND spheres,
-       or cylinders AND cones, etc.).
-    4. Position every object using descriptive variable names
-       (e.g., house_x, tree_height -- NOT x1, h).
-    5. Add comments explaining what each section of your code does.
-
-GRADING CRITERIA:
-    - [20%] Ground plane is created and scaled appropriately.
-    - [30%] At least 5 objects are created using at least 2 primitive types.
-    - [25%] All positions/sizes use descriptive variable names.
-    - [15%] Code is commented clearly and thoroughly.
-    - [10%] Scene is visually coherent (objects are placed intentionally,
-            not overlapping randomly).
-
-TIPS:
-    - Run this script from Maya's Script Editor (Python tab).
-    - Use maya.cmds.polyCube(), maya.cmds.polySphere(), maya.cmds.polyCylinder(),
-      maya.cmds.polyCone(), maya.cmds.polyPlane(), etc.
-    - Use maya.cmds.move(x, y, z, objectName) to position objects.
-    - Use maya.cmds.scale(x, y, z, objectName) to resize objects.
-    - Use maya.cmds.rename(oldName, newName) to give objects meaningful names.
-"""
+#Assignment 1:
 
 import maya.cmds as cmds
 
 # ---------------------------------------------------------------------------
 # Clear the scene so we start fresh each time the script runs.
-# (This is provided for you -- do not remove.)
 # ---------------------------------------------------------------------------
 cmds.file(new=True, force=True)
 
@@ -60,7 +26,6 @@ cmds.move(0, ground_y_position, 0, ground)
 
 # ---------------------------------------------------------------------------
 # Example Object 1 -- a simple building (cube)
-# This is provided as an example. Study it, then add your own objects below.
 # ---------------------------------------------------------------------------
 building_width = 4
 building_height = 6
@@ -78,39 +43,74 @@ building = cmds.polyCube(
 cmds.move(building_x, building_height / 2.0, building_z, building)
 
 # ---------------------------------------------------------------------------
-# TODO: Add Object 2
-# Create a second object using a DIFFERENT primitive type than the cube above.
-# Remember to:
-#   - Use descriptive variable names for size and position.
-#   - Name the object meaningfully with the 'name' parameter or cmds.rename().
-#   - Position it so it sits on the ground (not floating or buried).
+# Object 2 -- Tree (cylinder)
 # ---------------------------------------------------------------------------
+tree_height = 5
+tree_radius = 0.5
+tree_x = 5
+tree_z = 3
 
+tree = cmds.polyCylinder(
+    name="tree",
+    height=tree_height,
+    radius=tree_radius
+)[0]
 
-# ---------------------------------------------------------------------------
-# TODO: Add Object 3
-# ---------------------------------------------------------------------------
-
-
-# ---------------------------------------------------------------------------
-# TODO: Add Object 4
-# ---------------------------------------------------------------------------
-
+cmds.move(tree_x, tree_height / 2.0, tree_z, tree)
 
 # ---------------------------------------------------------------------------
-# TODO: Add Object 5
+# Object 3 -- Crate (cube)
 # ---------------------------------------------------------------------------
+crate_size = 2
+crate_x = 2
+crate_z = 6
 
+crate = cmds.polyCube(
+    name="wood_crate",
+    width=crate_size,
+    height=crate_size,
+    depth=crate_size
+)[0]
+
+cmds.move(crate_x, crate_size / 2.0, crate_z, crate)
 
 # ---------------------------------------------------------------------------
-# TODO (Optional): Add more objects to make your scene more interesting!
-# Consider: trees, lamp posts, fences, vehicles, animals, etc.
+# Object 4 -- Pillar (cylinder)
 # ---------------------------------------------------------------------------
+pillar_height = 6
+pillar_radius = 1
+pillar_x = -2
+pillar_z = -5
 
+pillar = cmds.polyCylinder(
+    name="stone_pillar",
+    height=pillar_height,
+    radius=pillar_radius
+)[0]
+
+cmds.move(pillar_x, pillar_height / 2.0, pillar_z, pillar)
+
+# ---------------------------------------------------------------------------
+# Object 5 -- Fence (cube)
+# ---------------------------------------------------------------------------
+fence_width = 6
+fence_height = 1
+fence_depth = 0.3
+fence_x = 8
+fence_z = -2
+
+fence = cmds.polyCube(
+    name="fence_section",
+    width=fence_width,
+    height=fence_height,
+    depth=fence_depth
+)[0]
+
+cmds.move(fence_x, fence_height / 2.0, fence_z, fence)
 
 # ---------------------------------------------------------------------------
 # Frame All -- so the whole scene is visible in the viewport.
-# (This is provided for you -- do not remove.)
 # ---------------------------------------------------------------------------
 cmds.viewFit(allObjects=True)
 print("Scene built successfully!")
+
